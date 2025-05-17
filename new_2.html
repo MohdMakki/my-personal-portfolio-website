@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #6c63ff;
+        --secondary-color: #4a45b3;
+        --dark-color: #2c2851;
+        --light-color: #f8f9fa;
+        --accent-color: #ff6584;
+        --text-color: #333;
+        --bg-color: #fff;
+        --card-bg: #fff;
+        --section-bg-light: #f8f9fa;
+        --section-bg-dark: #333;
+        --navbar-bg: #f8f9fa;
+        --footer-bg: #2c2851;
+      }
+
+      [data-theme="dark"] {
+        --text-color: #e0e0e0;
+        --bg-color: #1a1a1a;
+        --card-bg: #2a2a2a;
+        --section-bg-light: #222;
+        --section-bg-dark: #1a1a1a;
+        --navbar-bg: #222;
+        --footer-bg: #111;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        position: relative;
+        min-height: 100vh;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        transition: all 0.3s ease;
+      }
+
+      /* Navigation */
+      .navbar {
+        background-color: var(--navbar-bg);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .navbar.scrolled {
+        padding: 5px 0;
+        background-color: var(--navbar-bg);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        color: var(--primary-color) !important;
+      }
+
+      .nav-link {
+        font-weight: 500;
+        margin: 0 10px;
+        position: relative;
+        color: var(--text-color) !important;
+      }
+
+      .nav-link:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        bottom: -2px;
+        left: 0;
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover:after {
+        width: 100%;
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      }
+
+      /* Align all navbar items */
+      .navbar-nav .nav-item {
+        display: flex;
+        align-items: center;
+      }
+
+      /* Hero Section */
+      #hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        background-color: var(--section-bg-light);
+        overflow: hidden;
+      }
+
+      .hero-text {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-image {
+        position: relative;
+        z-index: 1;
+      }
+
+      .typed-text {
+        color: var(--primary-color);
+        font-weight: 600;
+      }
+
+      .hero-btns .btn {
+        margin-right: 15px;
+        padding: 10px 25px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(108, 99, 255, 0.2);
+      }
+
+      .btn-outline-primary {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .btn-outline-primary:hover {
+        background-color: var(--primary-color);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(108, 99, 255, 0.2);
+      }
+
+      /* About Section */
+      #about {
+        padding: 100px 0;
+        background-color: var(--bg-color);
+      }
+
+      .section-title {
+        position: relative;
+        margin-bottom: 50px;
+      }
+
+      .section-title h2 {
+        font-weight: 700;
+        display: inline-block;
+        position: relative;
+        margin-bottom: 20px;
+        color: var(--text-color);
+      }
+
+      .section-title h2:after {
+        content: "";
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        background-color: var(--primary-color);
+        bottom: -10px;
+        left: 0;
+      }
+
+      .about-img {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .skill-item {
+        margin-bottom: 15px;
+      }
+
+      .skill-name {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: var(--text-color);
+      }
+
+      .skill-bar {
+        height: 10px;
+        background-color: #e9ecef;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .skill-progress {
+        background-color: var(--primary-color);
+        height: 100%;
+        border-radius: 5px;
+        transition: width 1.5s ease;
+      }
+
+      /* Education Section */
+      #education {
+        padding: 100px 0;
+        background-color: var(--section-bg-light);
+      }
+
+      .education-item {
+        padding: 20px;
+        border-left: 3px solid var(--primary-color);
+        position: relative;
+        margin-bottom: 30px;
+        background-color: var(--card-bg);
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .education-item::before {
+        content: "";
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        left: -9px;
+        top: 20px;
+      }
+
+      .education-item h4 {
+        color: var(--text-color);
+        margin-bottom: 5px;
+      }
+
+      .education-item p {
+        color: var(--text-color);
+        margin-bottom: 5px;
+      }
+
+      .education-item .year {
+        font-style: italic;
+        color: var(--primary-color);
+      }
+
+      /* Services Section */
+      #services {
+        padding: 100px 0;
+        background-color: var(--section-bg-light);
+      }
+
+      .service-box {
+        padding: 40px 30px;
+        border-radius: 10px;
+        background-color: var(--card-bg);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        margin-top: 30px;
+        margin-bottom: 50px;
+        margin-left: 15px;
+        margin-right: 15px;
+        height: 100%;
+      }
+
+      .service-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(108, 99, 255, 0.2);
+      }
+
+      .service-icon {
+        width: 70px;
+        height: 70px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .service-box h4,
+      .service-box p {
+        color: var(--text-color);
+      }
+
+      /* Portfolio Section */
+      #portfolio {
+        padding: 100px 0;
+        background-color: var(--bg-color);
+      }
+
+      .portfolio-filter {
+        margin-bottom: 30px;
+      }
+
+      .filter-btn {
+        border: none;
+        background-color: transparent;
+        font-weight: 500;
+        padding: 8px 15px;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+        color: var(--text-color);
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .portfolio-item {
+        margin-bottom: 30px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .portfolio-img {
+        transition: all 0.4s ease;
+      }
+
+      .portfolio-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(108, 99, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        opacity: 0;
+        transition: all 0.4s ease;
+      }
+
+      .portfolio-item:hover .portfolio-overlay {
+        opacity: 1;
+      }
+
+      .portfolio-item:hover .portfolio-img {
+        transform: scale(1.1);
+      }
+
+      .portfolio-overlay h4 {
+        color: white;
+        margin-bottom: 10px;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+      }
+
+      .portfolio-overlay p {
+        color: white;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+      }
+
+      .portfolio-item:hover .portfolio-overlay h4,
+      .portfolio-item:hover .portfolio-overlay p {
+        transform: translateY(0);
+      }
+
+      /* Testimonials */
+      #testimonials {
+        padding: 100px 0;
+        background-color: var(--section-bg-light);
+      }
+
+      .testimonial-item {
+        padding: 30px;
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        position: relative;
+        margin-top: 40px;
+        margin-bottom: 20px;
+      }
+
+      .testimonial-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+        top: -40px;
+        left: 30px;
+        border: 5px solid var(--card-bg);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .testimonial-text {
+        font-style: italic;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: var(--text-color);
+      }
+
+      .testimonial-name {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+      }
+
+      .testimonial-position {
+        color: var(--text-color);
+      }
+
+      /* Contact Section */
+      #contact {
+        padding: 100px 0;
+        background-color: var(--bg-color);
+      }
+
+      .contact-info {
+        margin-bottom: 20px;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        margin-right: 15px;
+      }
+
+      .contact-info h5,
+      .contact-info p {
+        color: var(--text-color);
+      }
+
+      .contact-form .form-control {
+        padding: 12px 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        border: 1px solid #e9ecef;
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        transition: all 0.3s ease;
+      }
+
+      .contact-form .form-control:focus {
+        box-shadow: none;
+        border-color: var(--primary-color);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--footer-bg);
+        padding: 30px 0;
+        color: white;
+      }
+
+      .social-links a {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+      }
+
+      .social-links a:hover {
+        background-color: var(--primary-color);
+        transform: translateY(-3px);
+      }
+
+      /* Back to top button */
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        z-index: 99;
+        box-shadow: 0 5px 20px rgba(108, 99, 255, 0.4);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .back-to-top.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Animation for preloader */
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--bg-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        transition: all 0.5s ease;
+      }
+
+      .preloader.loaded {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid var(--primary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Animations */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 991px) {
+        .navbar-collapse {
+          background-color: var(--navbar-bg);
+          padding: 15px;
+          border-radius: 5px;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+          margin-top: 15px;
+        }
+
+        #hero {
+          height: auto;
+          padding: 100px 0;
+        }
+
+        .hero-image {
+          margin-top: 50px;
+        }
+
+        .portfolio-filter {
+          overflow-x: auto;
+          white-space: nowrap;
+          padding-bottom: 15px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .section-title h2 {
+          font-size: 1.8rem;
+        }
+
+        .about-img {
+          margin-bottom: 30px;
+        }
+
+        .contact-info {
+          margin-bottom: 40px;
+        }
+
+        .service-box {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Preloader -->
+    <div class="preloader">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Portfolio</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#hero">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#education">Education</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#portfolio">Portfolio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials">Testimonials</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <i class="fas fa-moon theme-toggle" id="theme-toggle"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 hero-text">
+            <h1 class="mb-4 fade-in">
+              Hello, I'm <span class="typed-text"></span>
+            </h1>
+            <p class="lead mb-4 fade-in">
+              A passionate developer creating stunning web experiences with a
+              focus on design and functionality.
+            </p>
+            <div class="hero-btns fade-in">
+              <a href="#portfolio" class="btn btn-primary">View My Work</a>
+              <a href="#contact" class="btn btn-outline-primary">Contact Me</a>
+            </div>
+          </div>
+          <div class="col-lg-6 hero-image fade-in">
+            <img
+              src="/images/IMG_0015 2.png"
+              alt="Hero Image"
+              style="
+                width: 100%;
+                height: auto;
+                max-width: 100%;
+                object-fit: contain;
+                border-radius: 20px;
+                transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                animation: float 3s ease-in-out infinite;
+              "
+              onmousemove="const rect=this.getBoundingClientRect(),x=(event.clientX-rect.left)/rect.width,y=(event.clientY-rect.top)/rect.height,rotY=(x<0.3?-10:x>0.7?10:0),rotX=(y<0.3?10:y>0.7?-10:0),shadowX=rotY*3,shadowY=rotX*3,shadowIntensity=0.4+Math.abs(rotY+rotX)/50;this.style.transform=`perspective(1000px) rotateY(${rotY}deg) rotateX(${rotX}deg) scale(${1+Math.abs(rotY+rotX)/100})`;this.style.boxShadow=`${shadowX}px ${shadowY}px 30px 5px rgba(0,0,0,${shadowIntensity})`;"
+              onmouseout="this.style.transform='perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';this.style.boxShadow='0 10px 20px rgba(0,0,0,0.3)';"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+        <div class="section-title text-center fade-in">
+          <h2>About Me</h2>
+          <p>Get to know more about me and my skills</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-5 fade-in">
+            <div class="about-img">
+              <img
+                src="images/Photo.jpg"
+                alt="About Me"
+                class="img-fluid"
+                style="
+                  width: 100%;
+                  height: auto;
+                  max-width: 100%;
+                  object-fit: contain;
+                  border-radius: 20px;
+                  box-sizing: border-box;
+                  transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+                  transition: transform 0.3s ease, box-shadow 0.3s ease,
+                    filter 0.3s ease;
+                  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+                  animation: float 3s ease-in-out infinite;
+                "
+                onmousemove="const rect=this.getBoundingClientRect(),x=(event.clientX-rect.left)/rect.width,y=(event.clientY-rect.top)/rect.height,rotY=(x<0.3?-12:x>0.7?12:0),rotX=(y<0.3?12:y>0.7?-12:0),shadowX=rotY*3,shadowY=rotX*3,shadowIntensity=0.4+Math.abs(rotY+rotX)/50,persp=1000+Math.abs(rotY+rotX)*10,skew=(Math.abs(rotY+rotX)/10),glow=x<0.3&&y<0.3?'sepia(0.2)':x>0.7&&y<0.3?'brightness(1.1)':x<0.3&&y>0.7?'saturate(1.2)':x>0.7&&y>0.7?'contrast(1.1)':'none';this.style.transform=`perspective(${persp}px) rotateY(${rotY}deg) rotateX(${rotX}deg) skew(${skew}deg) scale(${1-Math.abs(rotY+rotX)/100})`;this.style.boxShadow=`${shadowX}px ${shadowY}px 25px 3px rgba(0,0,0,${shadowIntensity}), 0 0 10px rgba(255,255,255,${shadowIntensity/2})`;this.style.filter=`drop-shadow(0 0 8px rgba(255,255,255,${shadowIntensity/2})) ${glow}`;"
+                onmouseout="this.style.transform='perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';this.style.boxShadow='0 10px 20px rgba(0,0,0,0.3)';this.style.filter='none';"
+              />
+            </div>
+          </div>
+          <div class="col-lg-7 fade-in">
+            <h3 class="mb-4">Front-end Developer & Designer</h3>
+            <p>
+              I'm a passionate Front-End Developer with expertise in HTML, CSS,
+              JavaScript, and Bootstrap. I build responsive, user-friendly web
+              applications that enhance business presence online. I've interned
+              as a Software Development Intern at Bluestock Fintech,
+              contributing to scalable front-end features, and as a Web
+              Developer Intern at TechSonix Solutions, where I focused on
+              responsive design and real-world web projects. Always eager to
+              learn and create seamless digital experiences.
+            </p>
+            <p>
+              My goal is to create beautiful, functional websites that provide
+              an exceptional user experience. I'm constantly learning new
+              technologies to stay up-to-date with the latest industry trends.
+            </p>
+
+            <div class="skills mt-5">
+              <h4 class="mb-4">My Skills</h4>
+              <div class="skill-item">
+                <div class="skill-name d-flex justify-content-between">
+                  <span>HTML5</span>
+                  <span>95%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-name d-flex justify-content-between">
+                  <span>CSS3</span>
+                  <span>90%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-name d-flex justify-content-between">
+                  <span>JavaScript</span>
+                  <span>85%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="skill-item">
+                <div class="skill-name d-flex justify-content-between">
+                  <span>Bootstrap</span>
+                  <span>92%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+      <div class="container">
+        <div class="section-title text-center fade-in">
+          <h2>My Academic Education</h2>
+          <p>My educational journey and qualifications</p>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="education-item fade-in">
+              <h4>BE / B.Tech: Computer Science & Engineering</h4>
+              <p>Chandigarh University, Mohali, PB</p>
+              <p class="year">2021 - 2025</p>
+              <p>
+                CGPA:
+                <span class="year" style="font-weight: bold; color: red"
+                  >7.12</span
+                >
+              </p>
+            </div>
+            <div class="education-item fade-in">
+              <h4>12th Grade (Higher Secondary)</h4>
+              <p>Ramp Sewak Yadav Smarak Inter College, Barabanki, UP</p>
+              <p class="year">2018 - 2019</p>
+              <p>
+                Percentage:
+                <span class="year" style="font-weight: bold; color: red"
+                  >75%</span
+                >
+              </p>
+            </div>
+            <div class="education-item fade-in">
+              <h4>10th Grade (High School)</h4>
+              <p>Ramp Sewak Yadav Smarak Inter College, Barabanki, UP</p>
+              <p class="year">2016 - 2017</p>
+              <p>
+                Percentage:
+                <span class="year" style="font-weight: bold; color: red"
+                  >85.6%</span
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+      <div class="container">
+        <div class="section-title text-center fade-in">
+          <h2>My Services</h2>
+          <p>High-quality services that I offer to my clients</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 fade-in">
+            <div class="service-box">
+              <div class="service-icon">
+                <i class="fas fa-desktop"></i>
+              </div>
+              <br />
+              <div class="container">
+                <!-- <h4> Web Designer & Solutions </h4> -->
+                <span
+                  class="typed-text-1"
+                  style="font-size: 25px; margin: 0; padding: 0; color: red"
+                ></span>
+              </div>
+              <br />
+              <p style="text-align: justify">
+                Crafting visually captivating, fully responsive websites that
+                deliver exceptional user experiences, seamlessly blending modern
+                design trends with intuitive functionality.
+              </p>
+              <p style="text-align: justify">
+                Specializing in custom UI/UX design, mobile-first optimization,
+                and integration with cutting-edge frameworks like React, Vue.js,
+                and WordPress to create high-performance, scalable web solutions
+                tailored to your brand’s vision.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 fade-in">
+            <div class="service-box">
+              <div class="service-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <br />
+              <!-- <h4>Robust Web Development</h4> -->
+              <span
+                class="typed-text-2"
+                style="font-size: 25px; margin: 0; padding: 0; color: red"
+              ></span>
+              <br />
+              <br />
+              <p style="text-align: justify">
+                Developing high-performance, responsive web applications with
+                clean, optimized code to drive your business goals with
+                precision and scalability.
+              </p>
+              <p style="text-align: justify">
+                Leveraging advanced technologies like JavaScript, Node.js,
+                Python, and cloud-based solutions to deliver secure,
+                custom-built applications that enhance user engagement and
+                operational efficiency.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 fade-in">
+            <div class="service-box">
+              <div class="service-icon">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+              <br />
+              <!-- <h4>Adaptive Responsive Design</h4> -->
+              <span
+                class="typed-text-3"
+                style="font-size: 25px; margin: 0; padding: 0; color: red"
+              ></span>
+              <br />
+              <br />
+              <p style="text-align: justify">
+                Delivering seamless, visually appealing websites that perform
+                flawlessly across all devices, from desktops to smartphones,
+                ensuring an optimal user experience.
+              </p>
+              <p style="text-align: justify">
+                Utilizing mobile-first strategies, CSS Grid, Flexbox, and
+                progressive enhancement to create fluid, accessible designs that
+                adapt to diverse screen sizes and boost engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-title text-center fade-in">
+          <h2>My Portfolio</h2>
+          <p>Check out some of my recent projects</p>
+        </div>
+
+        <div class="portfolio-filter text-center fade-in">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="web">Web Design</button>
+          <button class="filter-btn" data-filter="app">App Development</button>
+          <button class="filter-btn" data-filter="ui">UI/UX Design</button>
+        </div>
+
+        <div class="row portfolio-container">
+          <div class="col-lg-4 col-md-6 portfolio-item web fade-in">
+            <div class="position-relative overflow-hidden">
+              <img
+                src="images/searching-visualization copy.svg"
+                alt="Portfolio 1"
+                class="img-fluid portfolio-img"
+                style="
+                  width: 500px;
+                  height: 250px;
+                  max-width: 100%;
+                  object-fit: cover;
+                  border-radius: 15px;
+                "
+              />
+              <div class="portfolio-overlay" style="padding: 10px">
+                <h4 style="font-style: italic">Searching Visualization</h4>
+                <p style="text-align: justify">
+                  Linear & Binary Search: Developed a Searching Visualization
+                  project to demonstrate search algorithms like Linear and
+                  Binary Search. The interactive interface helps users
+                  understand algorithm behavior with real-time animations.
+                </p>
+                <a
+                  href="https://github.com/MohdMakki/Searching-Visualization"
+                  class="btn btn-sm btn-light mt-2"
+                  >View Details</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item app fade-in">
+            <div class="position-relative overflow-hidden">
+              <img
+                src="images/fibonacci-visualizer copy.svg"
+                alt="Portfolio 2"
+                class="img-fluid portfolio-img"
+                style="
+                  width: 500px;
+                  height: 250px;
+                  max-width: 100%;
+                  object-fit: cover;
+                  border-radius: 15px;
+                "
+              />
+              <div class="portfolio-overlay" style="padding: 10px">
+                <h4 style="font-style: italic">Fibonacci Visualizer</h4>
+                <p style="text-align: justify">
+                  Fibonacci Visualizer: The Fibonacci sequence is a mathematical
+                  pattern where each number is the sum of the two preceding
+                  ones. Introduced to the West by Leonardo Fibonacci in 1202 but
+                  known earlier in India, this sequence appears throughout
+                  nature and connects to the golden ratio.
+                </p>
+                <a
+                  href="https://github.com/MohdMakki/Fibonacci-Visualizer"
+                  class="btn btn-sm btn-light mt-2"
+                  >View Details</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item ui fade-in">
+            <div class="position-relative overflow-hidden">
+              <img
+                src="images/coffee-shop-dashboard copy.svg"
+                alt="Portfolio 3"
+                class="img-fluid portfolio-img"
+                style="
+                  width: 500px;
+                  height: 250px;
+                  max-width: 100%;
+                  object-fit: cover;
+                  border-radius: 15px;
+                "
+              />
+              <div class="portfolio-overlay" style="padding: 10px">
+                <h4 style="font-style: italic">
+                  Data Visualization & Business Intelligence
+                </h4>
+                <p style="text-align: justify">
+                  Proficient in Power BI and Tableau for data visualization,
+                  creating interactive dashboards and reports. Skilled in
+                  transforming complex data into insights with analytics, data
+                  modeling, and custom visualizations to drive decision-making.
+                </p>
+                <a
+                  href="https://github.com/MohdMakki?tab=repositories"
+                  class="btn btn-sm btn-light mt-2"
+                  >View Details</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item web fade-in">
+            <div class="position-relative overflow-hidden">
+              <img
+                src="images/flappy copy.svg"
+                alt="Portfolio 4"
+                class="img-fluid portfolio-img"
+                style="
+                  width: 500px;
+                  height: 250px;
+                  max-width: 100%;
+                  object-fit: cover;
+                  border-radius: 15px;
+                "
+              />
+              <div class="portfolio-overlay" style="padding: 10px">
+                <h4 style="font-style: italic">Flappy Bird Game</h4>
+                <p style="text-align: justify">
+                  Develop a responsive HTML5 Canvas-based Flappy Bird clone with
+                  pure JavaScript that features gravity physics, collision
+                  detection, and animated graphics. Include power-up system,
+                  difficulty settings, and score tracking while ensuring
+                  cross-browser compatibility and mobile-friendly controls.
+                </p>
+                <a
+                  href="https://github.com/MohdMakki/Buddy4Plant"
+                  class="btn btn-sm btn-light mt-2"
+                  >View Details</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item app fade-in">
+            <div class="position-relative overflow-hidden">
+              <img
+                src="images/traffic-flow-analysis-system copy.svg"
+                alt="Portfolio 5"
+                class="img-fluid portfolio-img"
+                style="
+                  width: 500px;
+                  height: 250px;
+                  max-width: 100%;
+                  object-fit: cover;
+                  border-radius: 15px;
+                "
+              />
+              <div class="portfolio-overlay" style="padding: 10px">
+                <h4 style="font-style: italic">
+                  Real-Time Traffic Flow Analysis system using AI and computer
+                  vision
+                </h4>
+                <p style="text-align: justify">
+                  Developed a Real-Time Traffic Flow Analysis system using AI
+                  and computer vision. The project processes live traffic data
+                  to detect congestion patterns, enhancing traffic management
+                  and optimization.
+                </p>
+                <a href="#" class="btn btn-sm btn-light mt-2">View Details</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 portfolio-item ui fade-in">
+            <div class="position-relative overflow-hidden">
+              <img
+                src="images/buddy copy.svg"
+                alt="Portfolio 6"
+                class="img-fluid portfolio-img"
+                style="
+                  width: 500px;
+                  height: 250px;
+                  max-width: 100%;
+                  object-fit: cover;
+                  border-radius: 15px;
+                "
+              />
+              <div class="portfolio-overlay" style="padding: 10px">
+                <h4 style="font-style: italic">Buddy4Plant</h4>
+                <p style="text-align: justify">
+                  Buddy4Plant is an innovative project designed to assist
+                  farmers in the field by leveraging technology for better plant
+                  care and agricultural efficiency. This system provides
+                  real-time insights, crop monitoring, and smart recommendations
+                  to enhance productivity and sustainability.
+                </p>
+                <a
+                  href="https://github.com/MohdMakki/Buddy4Plant"
+                  class="btn btn-sm btn-light mt-2"
+                  >View Details</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+      <div class="container">
+        <div class="section-title text-center fade-in">
+          <h2>Experience</h2>
+          <p>Where I've worked and what I've contributed</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6 fade-in">
+            <div class="testimonial-item">
+              <div class="testimonial-img">
+                <img
+                  src="https://pbs.twimg.com/profile_images/1711275061414699008/7RFqZYlp_400x400.png"
+                  alt="Testimonial 2"
+                  class="img-fluid"
+                />
+              </div>
+              <div class="testimonial-rating">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+              <p class="testimonial-text" style="text-align: justify">
+                "Working as a Software Development Engineer (SDE) at Bluestock
+                Fintech was a valuable experience. I contributed to building
+                scalable front-end components and enhancing the UI/UX of
+                financial web applications to meet real-world business needs."
+              </p>
+              <h5 class="testimonial-name">MOHD MAKKI</h5>
+              <p class="testimonial-position"><span class="typed-text-5"></span></p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 fade-in">
+            <div class="testimonial-item">
+              <div class="testimonial-img">
+                <img
+                  src="https://media.licdn.com/dms/image/v2/D560BAQHbHAG2z6lDFg/company-logo_400_400/company-logo_400_400/0/1735494292241/techsonix_solutions_logo?e=2147483647&v=beta&t=GWXzIYOPzJeQgZi_IemlXjxsVoIfR7wu7ezJMqoCwUU"
+                  alt="Testimonial 2"
+                  class="img-fluid"
+                />
+              </div>
+              <div class="testimonial-rating">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+              <p class="testimonial-text" style="text-align: justify">
+                "As a Web Developer Intern at TechSonix Solutions, I worked on
+                creating responsive and dynamic websites. I focused on
+                implementing clean UI designs, optimizing performance, and
+                ensuring cross-browser compatibility for real-world client
+                projects."
+              </p>
+
+              <h5 class="testimonial-name">MOHD MAKKI</h5>
+              <p class="testimonial-position">
+                <span class="typed-text-4"></span>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 fade-in">
+            <div class="testimonial-item">
+              <div class="testimonial-img">
+                <img
+                  src="https://seeklogo.com/images/C/chandigarh-university-cu-logo-BD80DC39BC-seeklogo.com.png"
+                  alt="Testimonial 2"
+                  class="img-fluid"
+                />
+              </div>
+              <div class="testimonial-rating">
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+                <i class="fas fa-star text-warning"></i>
+              </div>
+              <p class="testimonial-text" style="text-align: justify">
+                "Built projects like a Real-Time Traffic Monitoring System using
+                AI, Searching Visualizer, Fibonacci Visualizer, Buddy4Plant, a
+                smart farming assistant—enhancing my skills in front-end
+                development, AI, and real-world problem-solving, and working on
+                a Real Time Typing Test website etc."
+              </p>
+              <h5 class="testimonial-name">MOHD MAKKI</h5>
+              <p class="testimonial-position">
+                <span class="typed-text-6"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-title text-center fade-in">
+          <h2>Contact Me</h2>
+          <p>Let's get in touch and discuss your project</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 fade-in">
+            <div class="contact-info d-flex align-items-center">
+              <div class="contact-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div>
+                <h5>Phone</h5>
+                <p>+91 7071760851</p>
+              </div>
+            </div>
+            <div class="contact-info d-flex align-items-center">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h5>Email</h5>
+                <p>mohdmakki27@gmail.com</p>
+              </div>
+            </div>
+            <div class="contact-info d-flex align-items-center">
+              <div class="contact-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h5>Location</h5>
+                <p>Lucknow, UP, IN</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 fade-in">
+            <form class="contact-form">
+              <div class="row">
+                <div class="col-md-6">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Your Name"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Your Email"
+                    required
+                  />
+                </div>
+              </div>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Subject"
+                required
+              />
+              <textarea
+                class="form-control"
+                rows="5"
+                placeholder="Message"
+                required
+              ></textarea>
+              <button type="submit" class="btn btn-primary">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container text-center">
+        <div class="social-links mb-3">
+          <a href="https://github.com/MohdMakki?tab=repositories"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a href="https://www.instagram.com/mohdmakki27/"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="https://www.linkedin.com/in/mohd-makki-a3a886223/"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
+          <a href="https://www.facebook.com/mohd.makki.503"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a href="https://www.youtube.com/channel/UCKFaR1EjjqME7U3fChj1ODw"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </div>
+        <p>© 2025 My Portfolio. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script>
+      // Theme Toggle
+      const themeToggle = document.getElementById("theme-toggle");
+      const currentTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", currentTheme);
+      if (currentTheme === "dark") {
+        themeToggle.classList.remove("fa-moon");
+        themeToggle.classList.add("fa-sun");
+      }
+
+      themeToggle.addEventListener("click", () => {
+        let theme = document.documentElement.getAttribute("data-theme");
+        if (theme === "light") {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+          themeToggle.classList.remove("fa-moon");
+          themeToggle.classList.add("fa-sun");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
+          themeToggle.classList.remove("fa-sun");
+          themeToggle.classList.add("fa-moon");
+        }
+      });
+
+      // Preloader
+      window.addEventListener("load", function () {
+        document.querySelector(".preloader").classList.add("loaded");
+      });
+
+      // Navbar Scroll Effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Typed.js for Hero Section
+      new Typed(".typed-text", {
+        strings: ["a Developer", "a Designer", "a Creator"],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+      });
+
+      // Fade-in Animation on Scroll
+      const fadeElements = document.querySelectorAll(".fade-in");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      fadeElements.forEach((element) => observer.observe(element));
+
+      // Skills Progress Animation
+      const skillBars = document.querySelectorAll(".skill-progress");
+      const skillObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const progress = entry.target;
+              const percentage =
+                progress.parentElement.previousElementSibling.querySelector(
+                  "span:last-child"
+                ).textContent;
+              progress.style.width = percentage;
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      skillBars.forEach((bar) => skillObserver.observe(bar));
+
+      // Portfolio Filter
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const portfolioItems = document.querySelectorAll(".portfolio-item");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          filterButtons.forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          const filter = button.getAttribute("data-filter");
+          portfolioItems.forEach((item) => {
+            if (filter === "all" || item.classList.contains(filter)) {
+              item.style.display = "block";
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Back to Top Button
+      const backToTop = document.querySelector(".back-to-top");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+          backToTop.classList.add("active");
+        } else {
+          backToTop.classList.remove("active");
+        }
+      });
+
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      // Form Submission
+      document
+        .querySelector(".contact-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Message sent successfully! (This is a demo)");
+          this.reset();
+        });
+
+      new Typed(".typed-text-1", {
+        strings: ["Web Designer", "&", "Web Solutions "],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+      });
+      new Typed(".typed-text-2", {
+        strings: ["Robust Web Development"],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+      });
+      new Typed(".typed-text-3", {
+        strings: ["Adaptive", "&", "Responsive Design"],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+      });
+
+      new Typed(".typed-text-4", {
+        strings: ["Web Developer Intern", "TechSonix Solutions", "Pune, Maharastra"],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+      });
+
+      new Typed(".typed-text-5", {
+        strings: ["SDE Intern", "Bluestock Fintech", "Pune, Maharastra"],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+      });
+
+      new Typed(".typed-text-6", {
+        strings: ["B.E. / B.Tech CSE", "Chandigarh University", "Mohali, Punjab"],
+        typeSpeed: 50,
+        backSpeed: 30,
+        loop: true,
+      });
+
+      
+    </script>
+  </body>
+</html>
